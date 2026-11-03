@@ -356,7 +356,11 @@ def _scope_gate_url(ctx: ToolContext, target: str) -> dict[str, Any] | None:
     that is how a bug in the tool gets reported to the operator as a policy
     decision, and it is exactly the dishonesty this module exists to avoid.
     """
-    from ..tools.scope import ScopeViolation  # noqa: PLC0415 — optional import path
+    # DEP: pip install hunter-os-harness (or standalone hunter/scope.py)
+    try:
+        from ..tools.scope import ScopeViolation  # noqa: PLC0415
+    except ImportError:
+        from hunter.scope import ScopeViolation  # noqa: PLC0415 — local fallback
 
     check = getattr(ctx.scope, "check_url", None)
     if check is None:
@@ -371,7 +375,11 @@ def _scope_gate_url(ctx: ToolContext, target: str) -> dict[str, Any] | None:
 
 def _scope_gate_host(ctx: ToolContext, host: str) -> dict[str, Any] | None:
     """Same contract as :func:`_scope_gate_url`, for host checks."""
-    from ..tools.scope import ScopeViolation  # noqa: PLC0415 — optional import path
+    # DEP: pip install hunter-os-harness (or standalone hunter/scope.py)
+    try:
+        from ..tools.scope import ScopeViolation  # noqa: PLC0415
+    except ImportError:
+        from hunter.scope import ScopeViolation  # noqa: PLC0415 — local fallback
 
     allows = getattr(ctx.scope, "allows_host", None)
     if allows is None:
@@ -935,7 +943,19 @@ def register_toolchain_tools(registry: Any) -> Any:
     ``register_unavailable`` with the exact install command, so the model sees
     the capability and the reason it cannot use it — never a silent stub.
     """
-    from .tools_base import ToolSpec  # noqa: PLC0415 — optional import path
+    # DEP: pip install hunter-os-harness — original: from .tools_base import ToolSpec
+    try:
+        from .tools_base import ToolSpec  # noqa: PLC0415
+    except ImportError:
+        from dataclasses import dataclass
+
+        @dataclass
+        class ToolSpec:
+            name: str = ""
+            description: str = ""
+            parameters: dict[str, Any] = None  # type: ignore[assignment]
+            handler: Any = None
+            danger: str = "none"
 
     for spec in TOOLCHAIN_TOOLS:
         binary = {

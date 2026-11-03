@@ -153,6 +153,8 @@ def _probe_lanes() -> dict[str, str]:
     without the agent stack). With no tiers, both lanes are always enabled —
     the ledger records what each probe *is*, not what a tier allowed.
     """
+    # DEP: pip install hunter-os-harness — original: from hunter.agent.tools import ...
+    # Standalone fallback: the module-level _ACTIVE_PROBES/_PASSIVE_PROBES below.
     try:
         from hunter.agent.tools import ACTIVE_PROBES, KNOWN_PROBES, PASSIVE_PROBES  # noqa: PLC0415
     except ImportError:  # pragma: no cover - same package, defensive only

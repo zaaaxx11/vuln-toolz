@@ -481,7 +481,7 @@ main() {
   install_credentials
 
   local final_exit=${#FAILED[@]}
-  print_summary
+  print_summary || true
   return $(( final_exit ))
 }
 
