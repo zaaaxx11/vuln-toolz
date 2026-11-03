@@ -192,9 +192,10 @@ if [[ ${INSTALLED} -gt 0 ]]; then
       printf "${C_DIM}│${C_RESET}\n"
     fi
   done
-  # Finish partial row
+  # Finish partial row (pad the empty right-hand cell)
   if [[ $((COL % 2)) -ne 0 ]]; then
-    printf "%$((44 * 2 - COL * 44))s${C_DIM}│${C_RESET}\n" ""
+    printf ' %.0s' $(seq 1 44)
+    printf "${C_DIM}│${C_RESET}\n"
   fi
   echo -e "${C_DIM}  └──────────────────────────────────────────────────────────────────┘${C_RESET}"
 fi

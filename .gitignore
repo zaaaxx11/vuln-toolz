@@ -1,31 +1,34 @@
-# Byte-compiled
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Environments
-.env
-.env.*
-*.env
-
-# OS
+# OS metadata
 .DS_Store
 Thumbs.db
 
-# Editor
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment / secrets
+.env
+.env.*
+*.env
+secrets.*
+credentials.*
+
+# Logs
+*.log
+*.log.*
+
+# IDE / editor
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.vim/
 
-# Logs
-*.log
-
-# Secrets / credentials
-*secret*
-*credential*
-*private_key*
-*.pem
-*.key
-!*.sample.key
+# Node (for any bundled scripts)
+node_modules/
