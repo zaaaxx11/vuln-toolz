@@ -79,6 +79,10 @@ except ImportError:
 if TYPE_CHECKING:  # pragma: no cover - typing only
     from hunter.engine.base import EngineResult
     from hunter.kernel.ledger import Ledger
+else:
+    # Runtime stand-ins for type hints (from __future__ import annotations was stripped).
+    Ledger = Any  # type: ignore[misc, assignment]
+    EngineResult = Any  # type: ignore[misc, assignment]
 
 __all__ = [
     "PHASE_ORDER",

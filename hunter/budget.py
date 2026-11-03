@@ -27,9 +27,9 @@ from pathlib import Path
 try:
     from hunter.llm.base import RunBudget as RunBudgetContract
 except ImportError:  # pragma: no cover - standalone reference reading
+    @dataclass  # type: ignore[no-redef]
     class RunBudgetContract:  # type: ignore
         """Minimal stand-in for the base contract when hunter.llm.base is absent."""
-
         max_iterations: int = 0
         iterations_used: int = 0
         max_cost_usd: float = 0.0
