@@ -137,9 +137,38 @@ Hermes picks up skills on the next session — no daemon restart needed.
 
 ---
 
+## 🔧 Tools Installer
+
+```bash
+chmod +x tools/install-tools.sh && ./tools/install-tools.sh
+```
+
+One command installs **28 battle-tested security tools** — idempotent, cross-platform:
+
+| Category | Tools |
+|---|---|
+| **Web/API** | nuclei, subfinder, httpx, naabu, katana, ffuf, gobuster, amass, dnsx, shuffledns, gau, waybackurls, gf+patterns, anew, unfurl, nmap, masscan, sqlmap |
+| **Blockchain** | foundry (forge/cast/anvil), slither, solc-select, crytic-compile, echidna, medusa, 4byte |
+| **Credentials** | trufflehog, gitleaks |
+
+## 🧬 HunterOsHarness Modules
+
+`hunter/` contains **9 standalone Python modules** extracted from [HunterOsHarness](https://github.com/zaaaxx11/HunterOsHarness). Building blocks for your own security agents.
+
+| Module | Purpose |
+|---|---|
+| `claimgate.py` | Finding status validation — evidence-gated promotion |
+| `target_classifier.py` | Classifies targets (contract/bridge/chain/repo/domain) |
+| `target_resolve.py` | Resolves free-form target descriptions to structured specs |
+| `scope.py` | Scope gate — domain/host validation |
+| `daemon_health.py` | Zombie reaping + memory pressure backpressure |
+| `budget.py` | Run cost control — wall time + token budget enforcement |
+| `taxonomy.py` | Vulnerability classification (CWE-like hierarchy) |
+| `redaction.py` | Safe text redaction for report outputs |
+
 ## 🎯 Usage
 
-Skills load automatically by intent. Once installed, just ask your agent for the thing you want to do — the skill's trigger words in its `description` fire it:
+After install, the skills auto-load when a matching task is triggered.
 
 ```text
 > "audit this EVM contract against the 875 hack patterns"
