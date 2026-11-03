@@ -1,0 +1,202 @@
+# TOOLS CONFIG — Predator Recon
+# Versions, timeouts, and tool-specific settings
+
+tools:
+  subfinder:
+    version: "latest"
+    timeout: 60
+    args: ["-all", "-silent"]
+    passive_only: false
+  
+  assetfinder:
+    version: "latest"
+    timeout: 30
+    args: ["--subs-only"]
+  
+  amass:
+    version: "latest"
+    timeout: 120
+    passive_args: ["enum", "-passive", "-norecursive", "-noalts"]
+    active_args: ["enum", "-brute", "-active"]
+  
+  httpx:
+    version: "latest"
+    timeout: 30
+    threads: 50
+    args: ["-silent", "-mc", "200,301,302,403,401", "-title", "-tech-detect", "-status-code"]
+  
+  waymore:
+    version: "latest"
+    timeout: 60
+    mode: "U"
+  
+  gau:
+    version: "latest"
+    timeout: 30
+    args: ["--subs"]
+  
+  katana:
+    version: "latest"
+    timeout: 60
+    depth: 3
+    args: ["-jc", "-kf", "all", "-silent"]
+  
+  gau:
+    version: "latest"
+    timeout: 30
+  
+  puredns:
+    version: "latest"
+    rate_limit: 10000
+    resolvers: "~/wordlists/resolvers.txt"
+  
+  ffuf:
+    version: "latest"
+    threads: 50
+    rate_limit: 0
+  
+  nuclei:
+    version: "latest"
+    rate_limit: 100
+    severity: ["critical", "high", "medium"]
+    templates:
+      - "vulnerabilities/"
+      - "cves/"
+      - "exposures/"
+      - "misconfiguration/"
+      - "fuzzing-templates/"
+      - "ssl/"
+      - "dns/"
+      - "takeovers/"
+  
+  dalfox:
+    version: "latest"
+    workers: 100
+    blind_xss_server: "${XSS_SERVER_URL}"
+  
+  sqlmap:
+    version: "latest"
+    threads: 5
+    risk: 1
+    level: 1
+    tamper: "space2comment"
+    batch: true
+    random_agent: true
+  
+  naabu:
+    version: "latest"
+    rate: 10000
+    top_ports: 1000
+    silent: true
+  
+  puredns:
+    version: "latest"
+    rate_limit: 10000
+  
+  ffuf:
+    version: "latest"
+    threads: 50
+  
+  nuclei:
+    version: "latest"
+    rate_limit: 100
+  
+  gf:
+    version: "latest"
+    patterns: ["xss", "sqli", "ssrf", "idor", "redirect", "ssti", "rce"]
+  
+  dalfox:
+    version: "latest"
+    workers: 100
+  
+  sqlmap:
+    version: "latest"
+    threads: 5
+    risk: 1
+    level: 1
+    tamper: "space2comment"
+    batch: true
+    random_agent: true
+  
+  naabu:
+    version: "latest"
+    rate: 10000
+    top_ports: 1000
+  
+  anew:
+    version: "latest"
+  
+  uro:
+    version: "latest"
+  
+  qsreplace:
+    version: "latest"
+  
+  gxss:
+    version: "latest"
+  
+  kxss:
+    version: "latest"
+  
+  tplmap:
+    version: "latest"
+  
+  subzy:
+    version: "latest"
+  
+  jscracker:
+    version: "latest"
+  
+  corscanner:
+    version: "latest"
+  
+  qsreplace:
+    version: "latest"
+  
+  paramspider:
+    version: "latest"
+  
+  arjun:
+    version: "latest"
+  
+  waymore:
+    version: "latest"
+  
+  gau:
+    version: "latest"
+  
+  katana:
+    version: "latest"
+  
+  github-endpoints:
+    version: "latest"
+  
+  github-subdomains:
+    version: "latest"
+  
+  crtfinder:
+    version: "latest"
+
+install_order:
+  1: ["subfinder", "assetfinder", "httpx", "anew", "uro", "qsreplace"]
+  2: ["gau", "katana", "waymore", "gau"]
+  3: ["nuclei", "dalfox", "sqlmap", "naabu"]
+  4: ["puredns", "ffuf", "subzy", "jscracker"]
+  5: ["tplmap", "arjun", "paramspider", "gf", "kxss", "gxss"]
+
+verify_commands:
+  subfinder: "subfinder -version"
+  assetfinder: "assetfinder -h"
+  httpx: "httpx -version"
+  nuclei: "nuclei -version"
+  dalfox: "dalfox version"
+  sqlmap: "sqlmap --version"
+  naabu: "naabu -version"
+  puredns: "puredns -version"
+  ffuf: "ffuf -V"
+  gau: "gau -version"
+  katana: "katana -version"
+  waymore: "waymore -version"
+  anew: "anew -version"
+  uro: "uro -version"
+  qsreplace: "qsreplace -version"

